@@ -2,7 +2,7 @@
 Game Project
 
 
-# Goals
+## Goals
 - Add goals
 
 ## TO-DO
@@ -10,3 +10,6 @@ Game Project
 
 ## Backlog
 - Add wish list
+
+### Project Tracker
+- [Project Tracker](https://shorturl.at/fktV1)
