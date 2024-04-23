@@ -4,9 +4,12 @@ let frameCounter = 0;
 
 const gameAreaElement = document.querySelector("#game-area");
 const playerElement = new gamePlayer(gameAreaElement);
-const enemyElement = new gameEnemy(gameAreaElement);
-enemyElement.createElement("enemy")
+const enemyElement1 = new gameEnemy(gameAreaElement);
+enemyElement1.createElement("enemy")
+const enemyElement2 = new gameEnemy(gameAreaElement);
+enemyElement2.createElement("enemy")
 
+arrayEnemy = [enemyElement1, enemyElement2]
 
 const fieldObject1 = new fieldObject("lake");
 fieldObject1.createElement(328, 500);
@@ -23,15 +26,20 @@ function gameLoop() {
     // Add here all the movement that is going to be trigered on each frame
     playerElement.move();
     frameCounter++;
-    if (enemyElement.idleState(playerElement)) {
-        enemyElement.chase(playerElement)
-    } else {
-        enemyElement.idleMovement();
-    }
-    enemyElement.chase(playerElement);
+    arrayEnemy.forEach(element => {
+        if (element.idleState(playerElement)){
+            element.chase(playerElement);
+        } else {
+            element.idleMovement();
+        };
+    });
+    arrayFieldObjects.forEach(element1 =>{
+        arrayEnemy.forEach(element2 => element2.enemyCollission(element1))
+    });
+    arrayEnemy.forEach(element => playerElement.playerCollission(element));
     arrayFieldObjects.forEach(element => playerElement.playerCollission(element));
-    arrayFieldObjects.forEach(element => enemyElement.enemyCollission(element));
-    playerElement.playerCollission(enemyElement);
+    arrayEnemy.forEach(element => element.enemyCollission(playerElement));
+    enemyElement1.enemyCollission(enemyElement2);
     window.requestAnimationFrame(gameLoop);
 }
 

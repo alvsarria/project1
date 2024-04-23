@@ -92,21 +92,21 @@ class gamePlayer {
                     if (Math.abs(diffY) > Math.abs(diffX)) {
                         this.y = collisionObject.y + collisionObject.height;
                         this.element.style.top = `${this.y}px`;
-                        console.log("CRASH FROM TOP");
+                        // console.log("CRASH FROM TOP");
                     } else {
                         this.x = collisionObject.x - this.width;
                         this.element.style.left = `${this.x}px`;
-                        console.log("CRASH FROM RIGHT");
+                        // console.log("CRASH FROM RIGHT");
                     };
                 } else {
                     if (Math.abs(diffY) > Math.abs(diffX)) {
                         this.y = collisionObject.y - this.height;
                         this.element.style.top = `${this.y}px`;
-                        console.log("CRASH FROM BOTTOM");
+                        // console.log("CRASH FROM BOTTOM");
                     } else {
                         this.x = collisionObject.x - this.width;
                         this.element.style.left = `${this.x}px`;
-                        console.log("CRASH FROM RIGHT");
+                        // console.log("CRASH FROM RIGHT");
                     };
                 };
             } else {
@@ -114,21 +114,21 @@ class gamePlayer {
                     if (Math.abs(diffY) > Math.abs(diffX)) {
                         this.y = collisionObject.y + collisionObject.height;
                         this.element.style.top = `${this.y}px`;
-                        console.log("CRASH FROM TOP");
+                        // console.log("CRASH FROM TOP");
                     } else {
                         this.x = collisionObject.x + collisionObject.width;
                         this.element.style.left = `${this.x}px`;
-                        console.log("CRASH FROM LEFT");
+                        // console.log("CRASH FROM LEFT");
                     };
                 } else {
                     if (Math.abs(diffY) > Math.abs(diffX)) {
                         this.y = collisionObject.y - this.height;
                         this.element.style.top = `${this.y}px`;
-                        console.log("CRASH FROM BOTTOM");
+                        // console.log("CRASH FROM BOTTOM");
                     } else {
                         this.x = collisionObject.x + collisionObject.width;
                         this.element.style.left = `${this.x}px`;
-                        console.log("CRASH FROM LEFT");
+                        // console.log("CRASH FROM LEFT");
                     };
                 };
                 return true;
