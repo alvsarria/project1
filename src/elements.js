@@ -160,7 +160,7 @@ class gamePlayer {
                 this.score += 10;
                 objectGame.element.remove();
                 this.life += 30;
-                this.mana += 20;
+                this.mana += 40;
                 console.log(`Score is ${this.score}`)
                 if (this.life > 100) {
                     this.life = 100;
@@ -536,7 +536,7 @@ class fireBall {
         };
     };
 
-    fireBallCollission(collisionObject, i, j) {
+    fireBallCollission(collisionObject, i, j, playerObject) {
         if (
             (
                 // Checks right upper corner of player agains enemy width position
@@ -571,7 +571,18 @@ class fireBall {
                 if (collisionObject.life <= 0) {
                     mainLibraryObjects.arrayEnemy.splice(j, 1);
                     collisionObject.element.remove();
-                }
+                    playerObject.score += 10;
+                    playerObject.life += 30;
+                    playerObject.mana += 40;
+                    if (playerObject.life > 100){
+                        playerObject.life = 100;
+                    };
+                    if (playerObject.mana > 100){
+                        playerObject.mana = 100
+                    };
+                    playerObject.element.querySelector(".mana-bar").style.width = `${playerObject.mana}%`
+                    playerObject.element.querySelector(".health-bar").style.width = `${playerObject.life}%`
+                };
             };
         };
     };

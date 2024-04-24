@@ -48,8 +48,8 @@ function gameLoop() {
         element.attack1(mainLibraryObjects.playerElement);
     });
     mainLibraryObjects.arrayFireBalls.forEach((element1, i) => {
-        mainLibraryObjects.arrayFieldObjects.forEach(element2 => element1.fireBallCollission(element2, i, 0))
-        mainLibraryObjects.arrayEnemy.forEach((element2, j) => element1.fireBallCollission(element2, i, j))
+        mainLibraryObjects.arrayFieldObjects.forEach(element2 => element1.fireBallCollission(element2, i, 0, mainLibraryObjects.playerElement))
+        mainLibraryObjects.arrayEnemy.forEach((element2, j) => element1.fireBallCollission(element2, i, j, mainLibraryObjects.playerElement))
     })
     window.requestAnimationFrame(gameLoop);
 }
@@ -108,7 +108,7 @@ document.addEventListener("keydown", (keyEvent) => {
 
 setInterval(() => {
     if (mainLibraryObjects.playerElement.mana < 100) {
-        mainLibraryObjects.playerElement.mana += 5;
+        mainLibraryObjects.playerElement.mana += 10;
         if (mainLibraryObjects.playerElement.mana > 100) {
             mainLibraryObjects.playerElement.mana = 100;
         };
