@@ -23,16 +23,53 @@ body {
 
 #player {
     height: 8vh;
-    background-color: blue;
     aspect-ratio: 1 / 1;
     position: absolute;
+    background-color: black;
+}
+
+.icon {
+    height: 6.5vh;
+    background-color: purple;
+    width: 100%;
+}
+
+.iconEnemy {
+    height: 7vh;
+    background-color: red;
+    width: 100%;
+}
+
+.health-bar {
+    height: 0.75vh;
+    background-color: green;
+    width: 100%;
+}
+
+.mana-bar {
+    height: 0.75vh;
+    background-color: blue;
+    width: 100%;
 }
 
 .enemy {
     height: 8vh;
-    background-color: red;
+    background-color: black;
     aspect-ratio: 1 / 1;
     position: absolute;
+}
+
+.health-barEnemy {
+    height: 1vh;
+    background-color: green;
+    width: 100%;
+}
+
+.fireBall {
+    height: 2vh;
+    aspect-ratio: 1 / 1;
+    background-color: #e28822;
+    position:  absolute;
 }
 
 .rock {

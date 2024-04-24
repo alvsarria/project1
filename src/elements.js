@@ -2,6 +2,7 @@
 class gamePlayer {
     constructor(gameAreaElement) {
         // Define Element
+        this.gameAreaElement = document.querySelector("#game-area");
         this.element = document.querySelector("#player");
         // Define Size
         this.height = this.element.getBoundingClientRect().height;
@@ -14,46 +15,57 @@ class gamePlayer {
         this.x = 0;
         // Movement Properties
         this.direction = [false, false, false, false];
+        this.finalDirection = null;
         this.velocity = 10;
         this.distance = null;
+        // Combat Properties
+        this.life = 100;
+        this.mana = 100;
+        this.attack = 10;
+        this.fireSpell = false;
+        // Game state
+        this.gameOver = false;
+        this.score = 0;
     };
 
     move() {
-        // Moving up + game boundaries
-        if (this.direction[0]) {
-            if (this.y <= 0) {
-                this.y = 0;
-                this.element.style.top = `${this.y}px`;
-            } else {
-                this.y -= this.velocity;
-                this.element.style.top = `${this.y}px`;
-            }
-            // Moving down + game boundaries
-        } if (this.direction[1]) {
-            if (this.y >= (this.gameAreaHeight - this.height)) {
-                this.y = this.gameAreaHeight - this.height;
-                this.element.style.top = `${this.y}px`;
-            } else {
-                this.y += this.velocity;
-                this.element.style.top = `${this.y}px`;
-            }
-            // Moving left + game boundaries
-        } if (this.direction[2]) {
-            if (this.x <= 0) {
-                this.x = 0;
-                this.element.style.left = `${this.x}px`;
-            } else {
-                this.x -= this.velocity;
-                this.element.style.left = `${this.x}px`;
-            }
-            // Moving right + game boundaries
-        } if (this.direction[3]) {
-            if (this.x >= (this.gameAreaWidth - this.width)) {
-                this.x = this.gameAreaWidth - this.width;
-                this.element.style.left = `${this.x}px`;
-            } else {
-                this.x += this.velocity;
-                this.element.style.left = `${this.x}px`;
+        if (!this.gameOver) {
+            // Moving up + game boundaries
+            if (this.direction[0]) {
+                if (this.y <= 0) {
+                    this.y = 0;
+                    this.element.style.top = `${this.y}px`;
+                } else {
+                    this.y -= this.velocity;
+                    this.element.style.top = `${this.y}px`;
+                }
+                // Moving down + game boundaries
+            } if (this.direction[1]) {
+                if (this.y >= (this.gameAreaHeight - this.height)) {
+                    this.y = this.gameAreaHeight - this.height;
+                    this.element.style.top = `${this.y}px`;
+                } else {
+                    this.y += this.velocity;
+                    this.element.style.top = `${this.y}px`;
+                }
+                // Moving left + game boundaries
+            } if (this.direction[2]) {
+                if (this.x <= 0) {
+                    this.x = 0;
+                    this.element.style.left = `${this.x}px`;
+                } else {
+                    this.x -= this.velocity;
+                    this.element.style.left = `${this.x}px`;
+                }
+                // Moving right + game boundaries
+            } if (this.direction[3]) {
+                if (this.x >= (this.gameAreaWidth - this.width)) {
+                    this.x = this.gameAreaWidth - this.width;
+                    this.element.style.left = `${this.x}px`;
+                } else {
+                    this.x += this.velocity;
+                    this.element.style.left = `${this.x}px`;
+                };
             };
         };
     };
@@ -98,6 +110,7 @@ class gamePlayer {
                         this.element.style.left = `${this.x}px`;
                         // console.log("CRASH FROM RIGHT");
                     };
+                    return true;
                 } else {
                     if (Math.abs(diffY) > Math.abs(diffX)) {
                         this.y = collisionObject.y - this.height;
@@ -108,6 +121,7 @@ class gamePlayer {
                         this.element.style.left = `${this.x}px`;
                         // console.log("CRASH FROM RIGHT");
                     };
+                    return true;
                 };
             } else {
                 if (diffY < 0) {
@@ -120,6 +134,7 @@ class gamePlayer {
                         this.element.style.left = `${this.x}px`;
                         // console.log("CRASH FROM LEFT");
                     };
+                    return true;
                 } else {
                     if (Math.abs(diffY) > Math.abs(diffX)) {
                         this.y = collisionObject.y - this.height;
@@ -130,11 +145,33 @@ class gamePlayer {
                         this.element.style.left = `${this.x}px`;
                         // console.log("CRASH FROM LEFT");
                     };
+                    return true;
                 };
-                return true;
             };
         } else {
             return false;
+        };
+    };
+
+    attack1(objectGame) {
+        if (this.playerCollission(objectGame)) {
+            objectGame.life -= this.attack;
+            if (objectGame.life <= 0) {
+                this.score += 10;
+                objectGame.element.remove();
+                this.life += 30;
+                this.mana += 20;
+                console.log(`Score is ${this.score}`)
+                if (this.life > 100) {
+                    this.life = 100;
+                };
+                if (this.mana > 100) {
+                    this.mana = 100;
+                };
+                this.element.querySelector(".mana-bar").style.width = `${this.mana}%`
+                this.element.querySelector(".health-bar").style.width = `${this.life}%`
+            };
+            objectGame.element.querySelector(".health-barEnemy").style.width = `${objectGame.life}%`
         };
     };
 };
@@ -167,11 +204,20 @@ class gameEnemy {
         this.idleTopCornerLeft = null;
         this.thirdFlag = false;
         this.idleBottomCornerLeft = null;
+        // Combat Properties
+        this.life = 100;
+        this.attack = 5;
     };
 
     createElement(classObject) {
         this.element = document.createElement("div");
         this.element.classList.add(classObject);
+        const iconEnemy = document.createElement("div");
+        const healthBar = document.createElement("div");
+        iconEnemy.classList.add("iconEnemy");
+        healthBar.classList.add("health-barEnemy");
+        this.element.appendChild(iconEnemy);
+        this.element.appendChild(healthBar);
         // remember the bug we had in class? We have to append the element to the game area before we can get its width and height!
         this.gameAreaElement.appendChild(this.element);
         this.height = this.element.getBoundingClientRect().height;
@@ -228,6 +274,7 @@ class gameEnemy {
                         this.element.style.left = `${this.x}px`;
                         // console.log("CRASH FROM RIGHT");
                     };
+                    return true;
                 } else {
                     if (Math.abs(diffY) > Math.abs(diffX)) {
                         this.y = collisionObject.y - this.height;
@@ -238,6 +285,7 @@ class gameEnemy {
                         this.element.style.left = `${this.x}px`;
                         // console.log("CRASH FROM RIGHT");
                     };
+                    return true;
                 };
             } else {
                 if (diffY < 0) {
@@ -250,6 +298,7 @@ class gameEnemy {
                         this.element.style.left = `${this.x}px`;
                         // console.log("CRASH FROM LEFT");
                     };
+                    return true;
                 } else {
                     if (Math.abs(diffY) > Math.abs(diffX)) {
                         this.y = collisionObject.y - this.height;
@@ -260,8 +309,8 @@ class gameEnemy {
                         this.element.style.left = `${this.x}px`;
                         // console.log("CRASH FROM LEFT");
                     };
+                    return true;
                 };
-                return true;
             };
         } else {
             return false;
@@ -362,6 +411,21 @@ class gameEnemy {
             };
         };
     };
+
+    attack1(objectGame) {
+        if (!objectGame.gameOver) {
+            if (this.enemyCollission(objectGame)) {
+                if (Math.floor(Math.random() * 10) === 0) {
+                    objectGame.life -= this.attack;
+                    if (objectGame.life <= 0) {
+                        objectGame.element.remove();
+                        objectGame.gameOver = true;
+                    };
+                    objectGame.element.querySelector(".health-bar").style.width = `${objectGame.life}%`
+                };
+            };
+        };
+    };
 };
 
 class fieldObject {
@@ -391,5 +455,124 @@ class fieldObject {
         this.x = xCoordinate;
         this.height = this.element.getBoundingClientRect().height;
         this.width = this.element.getBoundingClientRect().width;
+    };
+};
+
+class fireBall {
+    constructor() {
+        // Define Boundaries
+        this.gameAreaElement = document.querySelector("#game-area");
+        this.gameAreaHeight = gameAreaElement.getBoundingClientRect().height;
+        this.gameAreaWidth = gameAreaElement.getBoundingClientRect().width;
+        // Define Position
+        this.x = 0;
+        this.y = 0;
+        this.width = 0;
+        this.height = 0;
+        this.direction = 'down';
+        this.velocity = 20;
+        this.attack = 20;
+        //this.createElement();
+    };
+
+    createElement(gameObject) {
+        if (gameObject.mana >= 20) {
+            this.element = document.createElement("div");
+            mainLibraryObjects.arrayFireBalls.push(this);
+            this.element.classList.add("fireBall");
+            this.gameAreaElement.appendChild(this.element);
+            this.height = this.element.getBoundingClientRect().height;
+            this.width = this.element.getBoundingClientRect().width;
+            this.direction = gameObject.finalDirection;
+            if (this.direction === "up") {
+                this.y = gameObject.y - this.height;
+                this.x = gameObject.x + gameObject.width / 2 - this.width / 2
+            } else if (this.direction === "down") {
+                this.y = gameObject.y + gameObject.height;
+                this.x = gameObject.x + gameObject.width / 2 - this.width / 2
+            } else if (this.direction === "left") {
+                this.y = gameObject.y + gameObject.height / 2 - this.height / 2;
+                this.x = gameObject.x - this.width;
+            } else if (this.direction === "right") {
+                this.y = gameObject.y + gameObject.height / 2 - this.height / 2;
+                this.x = gameObject.x + gameObject.width;
+            }
+            this.element.style.top = `${this.y}px`;
+            this.element.style.left = `${this.x}px`;
+            gameObject.mana -= 20;
+            gameObject.element.querySelector(".mana-bar").style.width = `${gameObject.mana}%`
+        };
+    };
+
+    move(i) {
+        if (this.direction === "up") {
+            this.y -= this.velocity;
+            this.element.style.top = `${this.y}px`;
+            if (this.y <= 0) {
+                this.element.remove();
+                mainLibraryObjects.arrayFireBalls.splice(i, 1);
+            }
+        } else if (this.direction === "down") {
+            this.y += this.velocity;
+            this.element.style.top = `${this.y}px`;
+            if (this.y + this.height >= this.gameAreaHeight) {
+                this.element.remove();
+                mainLibraryObjects.arrayFireBalls.splice(i, 1);
+            }
+        } else if (this.direction === "left") {
+            this.x -= this.velocity;
+            this.element.style.left = `${this.x}px`;
+            if (this.x <= 0) {
+                this.element.remove();
+                mainLibraryObjects.arrayFireBalls.splice(i, 1);
+            }
+        } else if (this.direction === "right") {
+            this.x += this.velocity;
+            this.element.style.left = `${this.x}px`;
+            if (this.x + this.width >= this.gameAreaWidth) {
+                this.element.remove();
+                mainLibraryObjects.arrayFireBalls.splice(i, 1);
+            }
+        };
+    };
+
+    fireBallCollission(collisionObject, i, j) {
+        if (
+            (
+                // Checks right upper corner of player agains enemy width position
+                (
+                    this.x >= collisionObject.x
+                    && this.x <= collisionObject.x + collisionObject.width
+                )
+                //  Checks left upper corner of player element against enemy width position
+                || (
+                    this.x + this.width <= collisionObject.width + collisionObject.x
+                    && this.x + this.width >= collisionObject.x
+                )
+            )
+            && (
+                // Checks upper left corner of player agains enemy height position
+                (
+                    this.y >= collisionObject.y
+                    && this.y <= collisionObject.y + collisionObject.height
+                )
+                // Checks lower left corner of player agains enemy height position
+                || (
+                    this.y + this.height <= collisionObject.y + collisionObject.height
+                    && this.y + this.height >= collisionObject.y
+                )
+            )
+        ) {
+            this.element.remove();
+            mainLibraryObjects.arrayFireBalls.splice(i, 1);
+            if (collisionObject.element.classList[0].includes('enemy')) {
+                collisionObject.life -= this.attack;
+                collisionObject.element.querySelector(".health-barEnemy").style.width = `${collisionObject.life}%`
+                if (collisionObject.life <= 0) {
+                    mainLibraryObjects.arrayEnemy.splice(j, 1);
+                    collisionObject.element.remove();
+                }
+            };
+        };
     };
 };

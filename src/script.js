@@ -1,15 +1,19 @@
-console.log("Hello World! I am alive!");
-
 let frameCounter = 0;
 
 const gameAreaElement = document.querySelector("#game-area");
-const playerElement = new gamePlayer(gameAreaElement);
-const enemyElement1 = new gameEnemy(gameAreaElement);
-enemyElement1.createElement("enemy")
-const enemyElement2 = new gameEnemy(gameAreaElement);
-enemyElement2.createElement("enemy")
 
-arrayEnemy = [enemyElement1, enemyElement2]
+const mainLibraryObjects =
+{
+    playerElement: new gamePlayer(gameAreaElement),
+    arrayEnemy: [],
+    arrayFieldObjects: [],
+    arrayFireBalls: [],
+};
+
+for (i = 0; i <= 1; i++) {
+    mainLibraryObjects.arrayEnemy.push(new gameEnemy(gameAreaElement));
+    mainLibraryObjects.arrayEnemy[i].createElement("enemy")
+};
 
 const fieldObject1 = new fieldObject("lake");
 fieldObject1.createElement(328, 500);
@@ -20,26 +24,33 @@ fieldObject3.createElement(1400, 700);
 const fieldObject4 = new fieldObject("tree");
 fieldObject4.createElement(1400, 550);
 
-arrayFieldObjects = [fieldObject1, fieldObject2, fieldObject3, fieldObject4]
+mainLibraryObjects.arrayFieldObjects = [fieldObject1, fieldObject2, fieldObject3, fieldObject4]
 
 function gameLoop() {
     // Add here all the movement that is going to be trigered on each frame
-    playerElement.move();
     frameCounter++;
-    arrayEnemy.forEach(element => {
-        if (element.idleState(playerElement)){
-            element.chase(playerElement);
+    mainLibraryObjects.playerElement.move();
+    mainLibraryObjects.arrayFireBalls.forEach((element, i) => element.move(i));
+    mainLibraryObjects.arrayEnemy.forEach(element => {
+        if (element.idleState(mainLibraryObjects.playerElement)) {
+            element.chase(mainLibraryObjects.playerElement);
         } else {
             element.idleMovement();
         };
     });
-    arrayFieldObjects.forEach(element1 =>{
-        arrayEnemy.forEach(element2 => element2.enemyCollission(element1))
+    mainLibraryObjects.arrayFieldObjects.forEach(element1 => {
+        mainLibraryObjects.arrayEnemy.forEach(element2 => element2.enemyCollission(element1))
     });
-    arrayEnemy.forEach(element => playerElement.playerCollission(element));
-    arrayFieldObjects.forEach(element => playerElement.playerCollission(element));
-    arrayEnemy.forEach(element => element.enemyCollission(playerElement));
-    enemyElement1.enemyCollission(enemyElement2);
+    mainLibraryObjects.arrayEnemy.forEach(element => mainLibraryObjects.playerElement.playerCollission(element));
+    mainLibraryObjects.arrayFieldObjects.forEach(element => mainLibraryObjects.playerElement.playerCollission(element));
+    mainLibraryObjects.arrayEnemy.forEach(element => {
+        element.enemyCollission(mainLibraryObjects.playerElement);
+        element.attack1(mainLibraryObjects.playerElement);
+    });
+    mainLibraryObjects.arrayFireBalls.forEach((element1, i) => {
+        mainLibraryObjects.arrayFieldObjects.forEach(element2 => element1.fireBallCollission(element2, i, 0))
+        mainLibraryObjects.arrayEnemy.forEach((element2, j) => element1.fireBallCollission(element2, i, j))
+    })
     window.requestAnimationFrame(gameLoop);
 }
 
@@ -47,25 +58,65 @@ window.requestAnimationFrame(gameLoop);
 
 document.addEventListener("keydown", (keyEvent) => {
     if (keyEvent.key === "w") {
-        playerElement.direction[0] = true;
+        mainLibraryObjects.playerElement.finalDirection = "up";
+        mainLibraryObjects.playerElement.direction[0] = true;
     } else if (keyEvent.key === "s") {
-        playerElement.direction[1] = true;
+        mainLibraryObjects.playerElement.finalDirection = "down";
+        mainLibraryObjects.playerElement.direction[1] = true;
     } else if (keyEvent.key === "a") {
-        playerElement.direction[2] = true;
+        mainLibraryObjects.playerElement.finalDirection = "left";
+        mainLibraryObjects.playerElement.direction[2] = true;
     } else if (keyEvent.key === "d") {
-        playerElement.direction[3] = true;
+        mainLibraryObjects.playerElement.finalDirection = "right";
+        mainLibraryObjects.playerElement.direction[3] = true;
     };
 });
 
 
 document.addEventListener("keyup", (keyEvent) => {
     if (keyEvent.key === "w") {
-        playerElement.direction[0] = false;
+        mainLibraryObjects.playerElement.direction[0] = false;
     } else if (keyEvent.key === "s") {
-        playerElement.direction[1] = false;
+        mainLibraryObjects.playerElement.direction[1] = false;
     } else if (keyEvent.key === "a") {
-        playerElement.direction[2] = false;
+        mainLibraryObjects.playerElement.direction[2] = false;
     } else if (keyEvent.key === "d") {
-        playerElement.direction[3] = false;
+        mainLibraryObjects.playerElement.direction[3] = false;
     };
 });
+
+document.addEventListener("keydown", (keyEvent) => {
+    if (keyEvent.repeat) return;
+    if (keyEvent.key === "k") {
+        mainLibraryObjects.arrayEnemy.forEach((element, i) => {
+            mainLibraryObjects.playerElement.attack1(element);
+            if (element.life <= 0) {
+                mainLibraryObjects.arrayEnemy.splice(i, 1);
+            };
+        });
+    };
+});
+
+document.addEventListener("keydown", (keyEvent) => {
+    if (keyEvent.repeat) return;
+    if (keyEvent.key === "l") {
+        spellThrown = new fireBall;
+        spellThrown.createElement(mainLibraryObjects.playerElement);
+    };
+
+});
+
+setInterval(() => {
+    if (mainLibraryObjects.playerElement.mana < 100) {
+        mainLibraryObjects.playerElement.mana += 5;
+        if (mainLibraryObjects.playerElement.mana > 100) {
+            mainLibraryObjects.playerElement.mana = 100;
+        };
+    };
+    this.document.querySelector(".mana-bar").style.width = `${mainLibraryObjects.playerElement.mana}%`
+}, 1000)
+// document.addEventListener("keyup", (keyEvent) => {
+//     if (keyEvent.key === "f") {
+//         mainLibraryObjects.playerElement.fireSpell = false;
+//     };
+// });
