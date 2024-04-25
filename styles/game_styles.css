@@ -20,7 +20,7 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color:  black;
+    background-color: black;
     border-radius: 1%;
 }
 
@@ -28,9 +28,7 @@ body {
     height: 89vh;
     width: 89vw;
     position: relative;
-    /* background-image: url("https://lh3.bunny.novaskin.me/Bz9708ZAzDnCTokSd0Klsw8ZgGbUu6WsTyQnCaELSolP-MOBaKYTXvdFSr9lmCqmjb53XGclD7RZI0DksDLw"); */
     background-image: url("https://opengameart.org/sites/default/files/styles/medium/public/grass_71.png");
-    /* background-size: cover; */
     border-radius: 1%;
 }
 
@@ -38,25 +36,35 @@ body {
     height: 90px;
     width: 50px;
     position: absolute;
-    /* background-color: black; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-left: 10px;
+    margin-left: -10px;
+    z-index: 2;
+}
+
+.spear {
+    height: 90px;
+    width: 70px;
+    position: absolute;
+    z-index: 1;
+    background-image: url("../images/spear.png");
+    background-size: 100% 100%;
 }
 
 .icon {
     height: 80px;
-    /* background-color: purple; */
     width: 40px;
-    background-image: url("../images/character_right.png");
+    background-image: url("../images/character_down.png");
     background-size: 100% 100%;
     text-align: center;
 }
 
 .health-bar {
     height: 5px;
-    background-color: red ;
+    background-color: red;
     width: 100%;
 }
 
@@ -67,56 +75,440 @@ body {
 }
 
 .enemy {
-    height: 70px;
-    width: 70px;
-    aspect-ratio: 1 / 1;
+    height: 90px;
+    width: 50px;
     position: absolute;
+    z-index: 2;
 }
 
 .iconEnemy {
-    height: 60px;
-    background-color: red;
+    height: 80px;
     width: 100%;
+    background-image: url("../images/skelly_down.png");
+    background-size: 100% 100%;
 }
 
 .health-barEnemy {
     height: 10px;
-    background-color: green;
+    background-color: red;
     width: 100%;
 }
 
 .fireBall {
-    height: 60px;
-    width: 100px;
-    /* background-color: #e28822; */
+    height: 40px;
+    width: 80px;
     position: absolute;
     background-image: url("../images/fireball.png");
     background-size: cover;
-    /* transform: rotate(90deg); */
 }
 
 .rock {
     height: 140px;
     width: 140px;
-    /* background-color: #655353; */
     background-image: url("../images/rock.png");
     position: absolute;
     background-size: cover;
 }
 
-.lake {
-    height: 280px;
-    width: 280px;
-    /* background-color: #CDE5F9; */
+.lake_surroundings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 260px;
+    width: 260px;
     position: absolute;
-    background-image: url("https://opengameart.org/sites/default/files/styles/medium/public/water_6.png");
+    background-image: url("https://opengameart.org/sites/default/files/styles/medium/public/DirtAndBark_T.jpg");
     background-size: cover;
-    border-radius: 20%;
+    border-radius: 5%;
+}
+
+.lake {
+    height: 250px;
+    width: 250px;
+    position: absolute;
+    background-image: url("../images/water.png");
+    background-size: cover;
 }
 
 .tree {
-    height: 90px;
-    width: 90px;
-    background-color: #5F6344;
+    height: 150px;
+    width: 105px;
+    background-image: url("../images/tree.png");
+    background-size: cover;
     position: absolute;
 }
+
+.characterMoveDown {
+    animation: characterMoveDown 500ms infinite;
+}
+
+.characterMoveUp {
+    animation: characterMoveUp 500ms infinite;
+}
+
+.characterMoveLeft {
+    animation: characterMoveLeft 500ms infinite;
+}
+
+.characterMoveRight {
+    animation: characterMoveRight 500ms infinite;
+}
+
+.characterSpellUp {
+    animation: characterSpellUp 700ms;
+}
+
+.characterSpellDown {
+    animation: characterSpellDown 700ms;
+}
+
+.characterSpellLeft {
+    animation: characterSpellLeft 700ms;
+}
+
+.characterSpellRight {
+    animation: characterSpellRight 1000ms;
+}
+
+.characterAttackUp {
+    animation: characterAttackUp 1000ms;
+}
+
+@keyframes characterMoveDown {
+    0% {
+        background-image: url("../images/animations/character/moveDown/1.png");
+    }
+
+    11.11% {
+        background-image: url("../images/animations/character/moveDown/2.png");
+    }
+
+    22.22% {
+        background-image: url("../images/animations/character/moveDown/3.png");
+    }
+
+    33.33% {
+        background-image: url("../images/animations/character/moveDown/4.png");
+    }
+
+    44.44% {
+        background-image: url("../images/animations/character/moveDown/5.png");
+    }
+
+    55.55% {
+        background-image: url("../images/animations/character/moveDown/6.png");
+    }
+
+    66.66% {
+        background-image: url("../images/animations/character/moveDown/7.png");
+    }
+
+    77.77% {
+        background-image: url("../images/animations/character/moveDown/8.png");
+    }
+
+    88.88% {
+        background-image: url("../images/animations/character/moveDown/9.png");
+    }
+
+    100% {
+        background-image: url("../images/animations/character/moveDown/1.png");
+    }
+}
+
+@keyframes characterMoveUp {
+    0% {
+        background-image: url("../images/animations/character/moveUp/1.png");
+    }
+
+    11.11% {
+        background-image: url("../images/animations/character/moveUp/2.png");
+    }
+
+    22.22% {
+        background-image: url("../images/animations/character/moveUp/3.png");
+    }
+
+    33.33% {
+        background-image: url("../images/animations/character/moveUp/4.png");
+    }
+
+    44.44% {
+        background-image: url("../images/animations/character/moveUp/5.png");
+    }
+
+    55.55% {
+        background-image: url("../images/animations/character/moveUp/6.png");
+    }
+
+    66.66% {
+        background-image: url("../images/animations/character/moveUp/7.png");
+    }
+
+    77.77% {
+        background-image: url("../images/animations/character/moveUp/8.png");
+    }
+
+    88.88% {
+        background-image: url("../images/animations/character/moveUp/9.png");
+    }
+
+    100% {
+        background-image: url("../images/animations/character/moveUp/1.png");
+    }
+}
+
+@keyframes characterMoveLeft {
+    0% {
+        background-image: url("../images/animations/character/moveLeft/1.png");
+    }
+
+    11.11% {
+        background-image: url("../images/animations/character/moveLeft/2.png");
+    }
+
+    22.22% {
+        background-image: url("../images/animations/character/moveLeft/3.png");
+    }
+
+    33.33% {
+        background-image: url("../images/animations/character/moveLeft/4.png");
+    }
+
+    44.44% {
+        background-image: url("../images/animations/character/moveLeft/5.png");
+    }
+
+    55.55% {
+        background-image: url("../images/animations/character/moveLeft/6.png");
+    }
+
+    66.66% {
+        background-image: url("../images/animations/character/moveLeft/7.png");
+    }
+
+    77.77% {
+        background-image: url("../images/animations/character/moveLeft/8.png");
+    }
+
+    88.88% {
+        background-image: url("../images/animations/character/moveLeft/9.png");
+    }
+
+    100% {
+        background-image: url("../images/animations/character/moveLeft/1.png");
+    }
+}
+
+@keyframes characterMoveRight {
+    0% {
+        background-image: url("../images/animations/character/moveRight/1.png");
+    }
+
+    11.11% {
+        background-image: url("../images/animations/character/moveRight/2.png");
+    }
+
+    22.22% {
+        background-image: url("../images/animations/character/moveRight/3.png");
+    }
+
+    33.33% {
+        background-image: url("../images/animations/character/moveRight/4.png");
+    }
+
+    44.44% {
+        background-image: url("../images/animations/character/moveRight/5.png");
+    }
+
+    55.55% {
+        background-image: url("../images/animations/character/moveRight/6.png");
+    }
+
+    66.66% {
+        background-image: url("../images/animations/character/moveRight/7.png");
+    }
+
+    77.77% {
+        background-image: url("../images/animations/character/moveRight/8.png");
+    }
+
+    88.88% {
+        background-image: url("../images/animations/character/moveRight/9.png");
+    }
+
+    100% {
+        background-image: url("../images/animations/character/moveRight/1.png");
+    }
+}
+
+/* 
+@keyframes characterSpellUp {
+    0% {
+        background-image: url("../images/animations/character/spellUp/1.png");
+    }
+
+    14.28% {
+        background-image: url("../images/animations/character/spellUp/2.png");
+    }
+
+    28.56% {
+        background-image: url("../images/animations/character/spellUp/3.png");
+    }
+
+    42.84% {
+        background-image: url("../images/animations/character/spellUp/4.png");
+    }
+
+    57.12% {
+        background-image: url("../images/animations/character/spellUp/5.png");
+    }
+
+    71.4% {
+        background-image: url("../images/animations/character/spellUp/6.png");
+    }
+
+    85.68% {
+        background-image: url("../images/animations/character/SpellUp/7.png");
+    }
+
+    100% {
+        background-image: url("../images/animations/character/SpellUp/1.png");
+    }
+}
+
+@keyframes characterSpellDown {
+    0% {
+        background-image: url("../images/animations/character/spellDown/1.png");
+    }
+
+    14.28% {
+        background-image: url("../images/animations/character/spellDown/2.png");
+    }
+
+    28.56% {
+        background-image: url("../images/animations/character/spellDown/3.png");
+    }
+
+    42.84% {
+        background-image: url("../images/animations/character/spellDown/4.png");
+    }
+
+    57.12% {
+        background-image: url("../images/animations/character/spellDown/5.png");
+    }
+
+    71.4% {
+        background-image: url("../images/animations/character/spellDown/6.png");
+    }
+
+    85.68% {
+        background-image: url("../images/animations/character/spellDown/7.png");
+    }
+
+    100% {
+        background-image: url("../images/animations/character/spellDown/1.png");
+    }
+}
+
+@keyframes characterSpellLeft {
+    0% {
+        background-image: url("../images/animations/character/spellLeft/1.png");
+    }
+
+    14.28% {
+        background-image: url("../images/animations/character/spellLeft/2.png");
+    }
+
+    28.56% {
+        background-image: url("../images/animations/character/spellLeft/3.png");
+    }
+
+    42.84% {
+        background-image: url("../images/animations/character/spellLeft/4.png");
+    }
+
+    57.12% {
+        background-image: url("../images/animations/character/spellLeft/5.png");
+    }
+
+    71.4% {
+        background-image: url("../images/animations/character/spellLeft/6.png");
+    }
+
+    85.68% {
+        background-image: url("../images/animations/character/spellLeft/7.png");
+    }
+
+    100% {
+        background-image: url("../images/animations/character/spellLeft/1.png");
+    }
+}
+
+@keyframes characterSpellRight {
+    0% {
+        background-image: url("../images/animations/character/spellRight/1.png");
+    }
+
+    14.28% {
+        background-image: url("../images/animations/character/spellRight/2.png");
+    }
+
+    28.56% {
+        background-image: url("../images/animations/character/spellRight/3.png");
+    }
+
+    42.84% {
+        background-image: url("../images/animations/character/spellRight/4.png");
+    }
+
+    57.12% {
+        background-image: url("../images/animations/character/spellRight/5.png");
+    }
+
+    71.4% {
+        background-image: url("../images/animations/character/spellRight/6.png");
+    }
+
+    85.68% {
+        background-image: url("../images/animations/character/spellRight/7.png");
+    }
+
+    100% {
+        background-image: url("../images/animations/character/spellRight/1.png");
+    }
+}
+
+@keyframes characterAttackUp {
+    0% {
+        background-image: url("../images/animations/character/attackUp/1.png");
+    }
+
+    10% {
+        background-image: url("../images/animations/character/attackUp/2.png");
+    }
+
+    20% {
+        background-image: url("../images/animations/character/attackUp/3.png");
+    }
+
+    30% {
+        background-image: url("../images/animations/character/attackUp/4.png");
+    }
+
+    40% {
+        background-image: url("../images/animations/character/attackUp/5.png");
+    }
+
+    80% {
+        background-image: url("../images/animations/character/attackUp/6.png");
+    }
+
+    90% {
+        background-image: url("../images/animations/character/attackUp/7.png");
+    }
+
+    100% {
+        background-image: url("../images/animations/character/attackUp/8.png");
+    }
+} */

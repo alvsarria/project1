@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'medieval';
+    src: url("./fonts/MedievalSharp-Regular.ttf");
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,33 +12,87 @@
 body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     height: 100vh;
-    background-color: black;
+    background-image: url("https://blenderartists.org/uploads/default/original/4X/e/1/b/e1b7cc597f4d71d2e4cf05b64f0bbc988c0426fa.jpeg");
+    background-size: cover;
+    gap: 300px;
 }
 
 #title {
-    width: 50vw;
-    font-size: 10em;
+    width: 70vw;
+    font-size: 7em;
     font-weight: bold;
-    background-color: white;
-    color: black;
+    background-image: url("../images/wall.jpeg");
+    background-size: cover;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     text-align: center;
-    margin: 10vw 10vh;
+    font-family: medieval;
+    padding-top: 1.5vw;
+    padding-bottom: 1.5vw;
+    color: white;
+    border-radius: 5%;
+}
+
+.test {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.padded {
+    position: absolute;
+    text-align: center;
+    color: white;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.padded1 {
+    position: absolute;
+    text-align: center;
+    color: black
+
+}
+
+.shield {
+    width: 7vw;
+    aspect-ratio: 1/1;
+    background-image: url("../images/shield.png");
+    background-size: 100% 100%;
+}
+
+.sword {
+    width: 7vw;
+    aspect-ratio: 1/1;
+    background-image: url("../images/sword.png");
+    background-size: 100% 100%;
 }
 
 #options {
     width: 50vw;
-    font-size: 5em;
+    height: 40vh;
+    font-size: 4em;
     font-weight: bold;
-    background-color: white;
-    color: black;
+    background-image: url("../images/framedungeon.png");
+    background-size: 100% 100%;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: medieval;
+    color: white;
+    gap: 100px;
 }
 
 a {
     cursor: pointer;
+    text-decoration: none;
+    color: inherit ;
 }
-
-

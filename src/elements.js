@@ -11,13 +11,17 @@ class gamePlayer {
         this.gameAreaHeight = gameAreaElement.getBoundingClientRect().height;
         this.gameAreaWidth = gameAreaElement.getBoundingClientRect().width;
         // Define Position
-        this.y = 0;
-        this.x = 0;
+        this.y = this.gameAreaHeight / 2 - this.height / 2;
+        this.x = this.gameAreaWidth / 2 - this.width / 2;
+        this.element.style.top = `${this.y}px`;
+        this.element.style.left = `${this.x}px`;
         // Movement Properties
         this.direction = [false, false, false, false];
         this.finalDirection = null;
-        this.velocity = 10;
+        this.currentDirection = null;
+        this.velocity = 5;
         this.distance = null;
+        this.movement = true;
         // Combat Properties
         this.life = 100;
         this.mana = 100;
@@ -26,50 +30,50 @@ class gamePlayer {
         // Game state
         this.gameOver = false;
         this.score = 0;
+
     };
 
     move() {
-        if (!this.gameOver) {
-            // Moving up + game boundaries
-            if (this.direction[0]) {
+        // Moving up + game boundaries
+        if (this.direction[0]) {
             this.element.querySelector(".icon").style.backgroundImage = "url(../images/character_up.png)"
-                if (this.y <= 0) {
-                    this.y = 0;
-                    this.element.style.top = `${this.y}px`;
-                } else {
-                    this.y -= this.velocity;
-                    this.element.style.top = `${this.y}px`;
-                }
-                // Moving down + game boundaries
-            } if (this.direction[1]) {
-                this.element.querySelector(".icon").style.backgroundImage = "url(../images/character_down.png)"
-                if (this.y >= (this.gameAreaHeight - this.height)) {
-                    this.y = this.gameAreaHeight - this.height;
-                    this.element.style.top = `${this.y}px`;
-                } else {
-                    this.y += this.velocity;
-                    this.element.style.top = `${this.y}px`;
-                }
-                // Moving left + game boundaries
-            } if (this.direction[2]) {
-                this.element.querySelector(".icon").style.backgroundImage = "url(../images/character_left.png)"
-                if (this.x <= 0) {
-                    this.x = 0;
-                    this.element.style.left = `${this.x}px`;
-                } else {
-                    this.x -= this.velocity;
-                    this.element.style.left = `${this.x}px`;
-                }
-                // Moving right + game boundaries
-            } if (this.direction[3]) {
-                this.element.querySelector(".icon").style.backgroundImage = "url(../images/character_right.png)"
-                if (this.x >= (this.gameAreaWidth - this.width)) {
-                    this.x = this.gameAreaWidth - this.width;
-                    this.element.style.left = `${this.x}px`;
-                } else {
-                    this.x += this.velocity;
-                    this.element.style.left = `${this.x}px`;
-                };
+            if (this.y <= 0) {
+                this.y = 0;
+                this.element.style.top = `${this.y}px`;
+            } else {
+                this.y -= this.velocity;
+                this.element.style.top = `${this.y}px`;
+            }
+            // Moving down + game boundaries
+        } if (this.direction[1]) {
+            this.element.querySelector(".icon").style.backgroundImage = "url(../images/character_down.png)"
+            if (this.y >= (this.gameAreaHeight - this.height)) {
+                this.y = this.gameAreaHeight - this.height;
+                this.element.style.top = `${this.y}px`;
+            } else {
+                this.y += this.velocity;
+                this.element.style.top = `${this.y}px`;
+            }
+            // Moving left + game boundaries
+        } else {
+        } if (this.direction[2]) {
+            this.element.querySelector(".icon").style.backgroundImage = "url(../images/character_left.png)"
+            if (this.x <= 0) {
+                this.x = 0;
+                this.element.style.left = `${this.x}px`;
+            } else {
+                this.x -= this.velocity;
+                this.element.style.left = `${this.x}px`;
+            }
+            // Moving right + game boundaries
+        } if (this.direction[3]) {
+            this.element.querySelector(".icon").style.backgroundImage = "url(../images/character_right.png)"
+            if (this.x >= (this.gameAreaWidth - this.width)) {
+                this.x = this.gameAreaWidth - this.width;
+                this.element.style.left = `${this.x}px`;
+            } else {
+                this.x += this.velocity;
+                this.element.style.left = `${this.x}px`;
             };
         };
     };
@@ -196,7 +200,7 @@ class gameEnemy {
         this.gameAreaWidth = gameAreaElement.getBoundingClientRect().width;
         // Movement Properties
         this.direction = [false, false, false, false];
-        this.velocity = 10;
+        this.velocity = 5;
         this.ChaseRadius = 50000 * 2;
         // Idle Movement Properties
         this.idleVelocity = this.velocity / 2;
@@ -335,6 +339,7 @@ class gameEnemy {
         // Starts idle movement towards right 
         if (!this.firstFlag) {
             this.x += this.idleVelocity;
+            this.element.querySelector(".iconEnemy").style.backgroundImage = "url(../images/skelly_right.png)"
             if (this.x + this.width >= this.gameAreaWidth) {
                 this.firstFlag = true;
                 this.x = this.gameAreaWidth - this.width;
@@ -345,6 +350,7 @@ class gameEnemy {
         };
         // Ctarts idle movement towards down
         if (!this.secondFlag & this.firstFlag) {
+            this.element.querySelector(".iconEnemy").style.backgroundImage = "url(../images/skelly_down.png)"
             this.y += this.idleVelocity;
             if (this.y + this.height >= this.gameAreaHeight) {
                 this.secondFlag = true;
@@ -356,6 +362,7 @@ class gameEnemy {
         };
         // Continues idle movement towards right
         if (!this.thirdFlag & this.secondFlag & this.firstFlag) {
+            this.element.querySelector(".iconEnemy").style.backgroundImage = "url(../images/skelly_left.png)"
             this.x -= this.idleVelocity;
             if (this.x <= 0) {
                 this.thirdFlag = true;
@@ -367,6 +374,7 @@ class gameEnemy {
         };
         // Continues idle movement towards up and resets movement
         if (this.thirdFlag & this.secondFlag & this.firstFlag) {
+            this.element.querySelector(".iconEnemy").style.backgroundImage = "url(../images/skelly_up.png)"
             this.y -= this.idleVelocity;
             if (this.y <= 0) {
                 this.firstFlag = false;
@@ -386,12 +394,14 @@ class gameEnemy {
         // randomly moves the enemy on the X axis towards the player direction
         if (Math.floor(Math.random() * 2) === 0 && this.x !== playerObject.x) {
             if (this.x > playerObject.width + playerObject.x) {
+                this.element.querySelector(".iconEnemy").style.backgroundImage = "url(../images/skelly_left.png)"
                 this.x -= this.velocity;
                 if (this.x < playerObject.width + playerObject.x) {
                     this.x = playerObject.width + playerObject.x;
                 };
                 this.element.style.left = `${this.x}px`;
             } else if (this.x + this.width < playerObject.x) {
+                this.element.querySelector(".iconEnemy").style.backgroundImage = "url(../images/skelly_right.png)"
                 this.x += this.velocity;
                 if (this.x + this.width > playerObject.x) {
                     this.x = playerObject.x - this.width;
@@ -401,12 +411,14 @@ class gameEnemy {
             // randomly moves the enemy on the Y axis towards the player direction
         } else if (Math.floor(Math.random() * 2) === 1 && this.y !== playerObject.y) {
             if (this.y > playerObject.height + playerObject.y) {
+                this.element.querySelector(".iconEnemy").style.backgroundImage = "url(../images/skelly_up.png)"
                 this.y -= this.velocity;
                 if (this.y < playerObject.height + playerObject.y) {
                     this.y = playerObject.height + playerObject.y;
                 };
                 this.element.style.top = `${this.y}px`;
             } else if (this.y + this.height < playerObject.y) {
+                this.element.querySelector(".iconEnemy").style.backgroundImage = "url(../images/skelly_down.png)"
                 this.y += this.velocity;
                 if (this.y + this.height > playerObject.y) {
                     this.y = playerObject.y - this.height;
@@ -448,14 +460,25 @@ class fieldObject {
     };
 
     createElement() {
-        this.element = document.createElement("div");
-        this.element.classList.add(this.classObject);
-        this.gameAreaElement.appendChild(this.element);
-        this.height = this.element.getBoundingClientRect().height;
-        this.width = this.element.getBoundingClientRect().width;
+        if (this.classObject === 'lake') {
+            this.element = document.createElement("div")
+            this.element.classList.add("lake_surroundings");
+            this.gameAreaElement.appendChild(this.element);
+            this.element1 = document.createElement("div");
+            this.element1.classList.add(this.classObject);
+            this.element.appendChild(this.element1);
+            this.height = this.element.getBoundingClientRect().height;
+            this.width = this.element.getBoundingClientRect().width;
+        } else {
+            this.element = document.createElement("div");
+            this.element.classList.add(this.classObject);
+            this.gameAreaElement.appendChild(this.element);
+            this.height = this.element.getBoundingClientRect().height;
+            this.width = this.element.getBoundingClientRect().width;
+        };
     };
 
-    move(coordinateY,coordinateX){
+    move(coordinateY, coordinateX) {
         this.y = coordinateY;
         this.x = coordinateX;
         this.element.style.top = `${coordinateY}px`;
@@ -487,7 +510,7 @@ class fireBall {
             this.gameAreaElement.appendChild(this.element);
             this.height = this.element.getBoundingClientRect().height;
             this.width = this.element.getBoundingClientRect().width;
-            this.direction = gameObject.finalDirection;
+            this.direction = gameObject.currentDirection;
             if (this.direction === "up") {
                 this.element.style.transform = "rotate(-90deg)";
                 this.y = gameObject.y - this.height;
@@ -516,28 +539,52 @@ class fireBall {
             this.y -= this.velocity;
             this.element.style.top = `${this.y}px`;
             if (this.y <= 0) {
-                this.element.remove();
+                this.element.style.backgroundImage = "url(../images/explosion.png)";
+                this.element.style.backgroundSize = "100% 100%";
+                this.element.style.height = "100px";
+                this.element.style.top = `${this.y - 20}px`
+                setTimeout(() => {
+                    this.element.remove();
+                }, 300);
                 mainLibraryObjects.arrayFireBalls.splice(i, 1);
             }
         } else if (this.direction === "down") {
             this.y += this.velocity;
             this.element.style.top = `${this.y}px`;
             if (this.y + this.height >= this.gameAreaHeight) {
-                this.element.remove();
+                this.element.style.backgroundImage = "url(../images/explosion.png)";
+                this.element.style.backgroundSize = "100% 100%";
+                this.element.style.height = "100px";
+                this.element.style.top = `${this.y - 20}px`
+                setTimeout(() => {
+                    this.element.remove();
+                }, 300);
                 mainLibraryObjects.arrayFireBalls.splice(i, 1);
             }
         } else if (this.direction === "left") {
             this.x -= this.velocity;
             this.element.style.left = `${this.x}px`;
             if (this.x <= 0) {
-                this.element.remove();
+                this.element.style.backgroundImage = "url(../images/explosion.png)";
+                this.element.style.backgroundSize = "100% 100%";
+                this.element.style.height = "100px";
+                this.element.style.top = `${this.y - 20}px`
+                setTimeout(() => {
+                    this.element.remove();
+                }, 300);
                 mainLibraryObjects.arrayFireBalls.splice(i, 1);
             }
         } else if (this.direction === "right") {
             this.x += this.velocity;
             this.element.style.left = `${this.x}px`;
             if (this.x + this.width >= this.gameAreaWidth) {
-                this.element.remove();
+                this.element.style.backgroundImage = "url(../images/explosion.png)";
+                this.element.style.backgroundSize = "100% 100%";
+                this.element.style.height = "100px";
+                this.element.style.top = `${this.y - 20}px`
+                setTimeout(() => {
+                    this.element.remove();
+                }, 300);
                 mainLibraryObjects.arrayFireBalls.splice(i, 1);
             }
         };
@@ -570,7 +617,13 @@ class fireBall {
                 )
             )
         ) {
-            this.element.remove();
+            this.element.style.backgroundImage = "url(../images/explosion.png)";
+            this.element.style.backgroundSize = "100% 100%";
+            this.element.style.height = "100px";
+            this.element.style.top = `${this.y - 20}px`
+            setTimeout(() => {
+                this.element.remove();
+            }, 300);
             mainLibraryObjects.arrayFireBalls.splice(i, 1);
             if (collisionObject.element.classList[0].includes('enemy')) {
                 collisionObject.life -= this.attack;
@@ -582,10 +635,10 @@ class fireBall {
                     console.log(`Score is ${playerObject.score}`)
                     playerObject.life += 30;
                     playerObject.mana += 40;
-                    if (playerObject.life > 100){
+                    if (playerObject.life > 100) {
                         playerObject.life = 100;
                     };
-                    if (playerObject.mana > 100){
+                    if (playerObject.mana > 100) {
                         playerObject.mana = 100
                     };
                     playerObject.element.querySelector(".mana-bar").style.width = `${playerObject.mana}%`
