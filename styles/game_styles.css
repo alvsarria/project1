@@ -22,73 +22,74 @@ body {
 }
 
 #player {
-    height: 8vh;
-    aspect-ratio: 1 / 1;
+    height: 70px;
+    width: 70px;
     position: absolute;
     background-color: black;
 }
 
 .icon {
-    height: 6.5vh;
+    height: 50px;
     background-color: purple;
     width: 100%;
 }
 
-.iconEnemy {
-    height: 7vh;
-    background-color: red;
-    width: 100%;
-}
-
 .health-bar {
-    height: 0.75vh;
+    height: 10px;
     background-color: green;
     width: 100%;
 }
 
 .mana-bar {
-    height: 0.75vh;
+    height: 10px;
     background-color: blue;
     width: 100%;
 }
 
 .enemy {
-    height: 8vh;
-    background-color: black;
+    height: 70px;
+    width: 70px;
     aspect-ratio: 1 / 1;
     position: absolute;
 }
 
+.iconEnemy {
+    height: 60px;
+    background-color: red;
+    width: 100%;
+}
+
 .health-barEnemy {
-    height: 1vh;
+    height: 10px;
     background-color: green;
     width: 100%;
 }
 
 .fireBall {
-    height: 2vh;
-    aspect-ratio: 1 / 1;
+    height: 30px;
+    width: 30px;
     background-color: #e28822;
-    position:  absolute;
+    position: absolute;
+    border-radius: 50%;
 }
 
 .rock {
-    height: 16vh;
-    aspect-ratio: 1/1;
+    height: 180px;
+    width: 180px;
     background-color: #655353;
     position: absolute;
 }
 
 .lake {
-    height: 24vh;
-    aspect-ratio: 1/1;
+    height: 360px;
+    width: 360px;
     background-color: #CDE5F9;
     position: absolute;
 }
 
 .tree {
-    height: 8vh;
-    aspect-ratio: 1/1;
+    height: 90px;
+    width: 90px;
     background-color: #5F6344;
     position: absolute;
 }
