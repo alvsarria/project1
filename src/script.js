@@ -90,7 +90,7 @@ mainLibraryObjects.arrayFieldObjects.push(fieldObject10);
 let enemySpecial = false;
 
 setInterval(() => {
-    if (!mainLibraryObjects.playerElement.gameOver) { 
+    if (!mainLibraryObjects.playerElement.gameOver) {
         if (!enemySpecial || mainLibraryObjects.arrayEnemy.length < 5) {
             const enemyObject = new gameEnemy(gameAreaElement)
             enemyObject.createElement("enemy");
@@ -107,6 +107,15 @@ setInterval(() => {
         };
     };
 }, 2000)
+
+setInterval(() => {
+    if (!mainLibraryObjects.playerElement.gameOver) {
+        enemySpecial = true;
+        const enemyObject1 = new gameEnemySpecial(gameAreaElement)
+        enemyObject1.createElement("enemySpecial");
+        mainLibraryObjects.arrayEnemy.push(enemyObject1);
+    };
+}, 15000)
 
 function spearThrow() {
     const spear = document.createElement("div");

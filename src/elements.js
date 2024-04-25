@@ -497,8 +497,8 @@ class gameEnemySpecial {
         this.thirdFlag = false;
         this.idleBottomCornerLeft = null;
         // Combat Properties
-        this.life = 500;
-        this.attack = 25;
+        this.life = 300;
+        this.attack = 20;
     };
 
     createElement(classObject) {
