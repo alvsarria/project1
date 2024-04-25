@@ -338,9 +338,9 @@ document.addEventListener("keydown", (keyEvent) => {
     };
 });
 
-window.addEventListener('resize', function () { 
+window.addEventListener('resize', function () {
     "use strict";
-    window.location.reload(); 
+    window.location.reload();
 });
 
 setInterval(() => {

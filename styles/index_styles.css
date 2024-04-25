@@ -72,7 +72,6 @@ body {
     position: absolute;
     text-align: center;
     color: black
-
 }
 
 .shield {
@@ -134,11 +133,11 @@ body {
 a {
     cursor: pointer;
     text-decoration: none;
-    color: inherit ;
+    color: inherit;
 }
 
 @keyframes popping {
-    
+
     0% {
         transform: translateY(0px);
     }

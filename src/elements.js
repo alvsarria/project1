@@ -167,7 +167,7 @@ class gamePlayer {
                 if (objectGame.element.classList[0] === 'enemySpecial') {
                     this.score += 100;
                 } else {
-                this.score += 10;
+                    this.score += 10;
                 };
                 objectGame.element.remove();
                 this.life += 30;

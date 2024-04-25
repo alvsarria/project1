@@ -259,7 +259,7 @@ body {
 }
 
 @keyframes popping {
-    
+
     0% {
         transform: translateY(0px);
     }

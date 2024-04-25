@@ -28,12 +28,15 @@ document.querySelector("body").appendChild(instructions);
 
 document.querySelector("#instructions").addEventListener("click", () => {
         menu.style.visibility = 'hidden';
-        instructions.style.visibility =  'visible';
+        instructions.style.visibility = 'visible';
 });
 
 document.querySelector(".options1").addEventListener("click", () => {
         menu.style.visibility = 'visible';
-        instructions.style.visibility =  'hidden';
+        instructions.style.visibility = 'hidden';
+});
 
-        
-})
+window.addEventListener('resize', function () {
+        "use strict";
+        window.location.reload();
+});
