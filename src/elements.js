@@ -32,6 +32,7 @@ class gamePlayer {
         if (!this.gameOver) {
             // Moving up + game boundaries
             if (this.direction[0]) {
+            this.element.querySelector(".icon").style.backgroundImage = "url(../images/character_up.png)"
                 if (this.y <= 0) {
                     this.y = 0;
                     this.element.style.top = `${this.y}px`;
@@ -41,6 +42,7 @@ class gamePlayer {
                 }
                 // Moving down + game boundaries
             } if (this.direction[1]) {
+                this.element.querySelector(".icon").style.backgroundImage = "url(../images/character_down.png)"
                 if (this.y >= (this.gameAreaHeight - this.height)) {
                     this.y = this.gameAreaHeight - this.height;
                     this.element.style.top = `${this.y}px`;
@@ -50,6 +52,7 @@ class gamePlayer {
                 }
                 // Moving left + game boundaries
             } if (this.direction[2]) {
+                this.element.querySelector(".icon").style.backgroundImage = "url(../images/character_left.png)"
                 if (this.x <= 0) {
                     this.x = 0;
                     this.element.style.left = `${this.x}px`;
@@ -59,6 +62,7 @@ class gamePlayer {
                 }
                 // Moving right + game boundaries
             } if (this.direction[3]) {
+                this.element.querySelector(".icon").style.backgroundImage = "url(../images/character_right.png)"
                 if (this.x >= (this.gameAreaWidth - this.width)) {
                     this.x = this.gameAreaWidth - this.width;
                     this.element.style.left = `${this.x}px`;
@@ -440,22 +444,23 @@ class fieldObject {
         this.y = 0;
         this.width = 0;
         this.height = 0;
-        //this.createElement();
+        this.createElement()
     };
 
-    createElement(xCoordinate, yCoordinate) {
+    createElement() {
         this.element = document.createElement("div");
         this.element.classList.add(this.classObject);
-        // remember the bug we had in class? We have to append the element to the game area before we can get its width and height!
         this.gameAreaElement.appendChild(this.element);
-
-        this.element.style.top = `${yCoordinate}px`;
-        this.element.style.left = `${xCoordinate}px`;
-        this.y = yCoordinate;
-        this.x = xCoordinate;
         this.height = this.element.getBoundingClientRect().height;
         this.width = this.element.getBoundingClientRect().width;
     };
+
+    move(coordinateY,coordinateX){
+        this.y = coordinateY;
+        this.x = coordinateX;
+        this.element.style.top = `${coordinateY}px`;
+        this.element.style.left = `${coordinateX}px`;
+    }
 };
 
 class fireBall {
@@ -472,7 +477,6 @@ class fireBall {
         this.direction = 'down';
         this.velocity = 20;
         this.attack = 20;
-        //this.createElement();
     };
 
     createElement(gameObject) {
@@ -485,12 +489,15 @@ class fireBall {
             this.width = this.element.getBoundingClientRect().width;
             this.direction = gameObject.finalDirection;
             if (this.direction === "up") {
+                this.element.style.transform = "rotate(-90deg)";
                 this.y = gameObject.y - this.height;
                 this.x = gameObject.x + gameObject.width / 2 - this.width / 2
             } else if (this.direction === "down") {
+                this.element.style.transform = "rotate(90deg)";
                 this.y = gameObject.y + gameObject.height;
                 this.x = gameObject.x + gameObject.width / 2 - this.width / 2
             } else if (this.direction === "left") {
+                this.element.style.transform = "rotate(180deg)";
                 this.y = gameObject.y + gameObject.height / 2 - this.height / 2;
                 this.x = gameObject.x - this.width;
             } else if (this.direction === "right") {
@@ -572,6 +579,7 @@ class fireBall {
                     mainLibraryObjects.arrayEnemy.splice(j, 1);
                     collisionObject.element.remove();
                     playerObject.score += 10;
+                    console.log(`Score is ${playerObject.score}`)
                     playerObject.life += 30;
                     playerObject.mana += 40;
                     if (playerObject.life > 100){
