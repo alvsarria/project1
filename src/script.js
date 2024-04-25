@@ -106,7 +106,7 @@ setInterval(() => {
             };
         };
     };
-}, 2000)
+}, 3500)
 
 setInterval(() => {
     if (!mainLibraryObjects.playerElement.gameOver) {
