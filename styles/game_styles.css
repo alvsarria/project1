@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'medieval';
+    src: url("./fonts/MedievalSharp-Regular.ttf");
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -28,12 +33,13 @@ body {
     height: 89vh;
     width: 89vw;
     position: relative;
-    background-image: url("https://opengameart.org/sites/default/files/styles/medium/public/grass_71.png");
+    background-image: url("../images/stoneFloor.jpg");
     border-radius: 1%;
+    z-index: 2;
 }
 
 #player {
-    height: 90px;
+    height: 100px;
     width: 50px;
     position: absolute;
     display: flex;
@@ -55,7 +61,7 @@ body {
 }
 
 .icon {
-    height: 80px;
+    height: 90px;
     width: 40px;
     background-image: url("../images/character_down.png");
     background-size: 100% 100%;
@@ -63,26 +69,26 @@ body {
 }
 
 .health-bar {
-    height: 5px;
+    height: 10px;
     background-color: red;
     width: 100%;
 }
 
 .mana-bar {
-    height: 5px;
+    height: 10px;
     background-color: blue;
     width: 100%;
 }
 
 .enemy {
-    height: 90px;
-    width: 50px;
+    height: 120px;
+    width: 70px;
     position: absolute;
     z-index: 2;
 }
 
 .iconEnemy {
-    height: 80px;
+    height: 110px;
     width: 100%;
     background-image: url("../images/skelly_down.png");
     background-size: 100% 100%;
@@ -94,9 +100,29 @@ body {
     width: 100%;
 }
 
+.enemySpecial {
+    height: 220px;
+    width: 140px;
+    position: absolute;
+    z-index: 2;
+}
+
+.iconEnemySpecial {
+    height: 200px;
+    width: 100%;
+    background-image: url("../images/skelly_down.png");
+    background-size: 100% 100%;
+}
+
+.health-barEnemySpecial {
+    height: 20px;
+    background-color: red;
+    width: 100%;
+}
+
 .fireBall {
-    height: 40px;
-    width: 80px;
+    height: 60px;
+    width: 100px;
     position: absolute;
     background-image: url("../images/fireball.png");
     background-size: cover;
@@ -110,12 +136,33 @@ body {
     background-size: cover;
 }
 
+.rock1 {
+    height: 70px;
+    width: 70px;
+    background-image: url("../images/rock.png");
+    position: absolute;
+    background-size: cover;
+}
+
+
 .lake_surroundings {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 260px;
-    width: 260px;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    background-image: url("https://opengameart.org/sites/default/files/styles/medium/public/DirtAndBark_T.jpg");
+    background-size: cover;
+    border-radius: 5%;
+}
+
+.lake_surroundings1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 200px;
     position: absolute;
     background-image: url("https://opengameart.org/sites/default/files/styles/medium/public/DirtAndBark_T.jpg");
     background-size: cover;
@@ -123,11 +170,21 @@ body {
 }
 
 .lake {
-    height: 250px;
-    width: 250px;
+    height: 90px;
+    width: 90px;
     position: absolute;
-    background-image: url("../images/water.png");
+    background-image: url("../images/lava.jpg");
     background-size: cover;
+    border-radius: 5%;
+}
+
+.lake1 {
+    height: 190px;
+    width: 190px;
+    position: absolute;
+    background-image: url("../images/lava.jpg");
+    background-size: cover;
+    border-radius: 5%;
 }
 
 .tree {
@@ -136,6 +193,48 @@ body {
     background-image: url("../images/tree.png");
     background-size: cover;
     position: absolute;
+}
+
+.banner {
+    width: 55vw;
+    height: 70vh;
+    background-image: url("../images/endGameBanner.png");
+    background-size: 100% 100%;
+    font-family: medieval;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5vh;
+    position: absolute;
+    top: 8vh;
+    left: 15vw;
+    padding-left: 8vw;
+    padding-right: 8vw;
+    z-index: 3;
+}
+
+.bannerWrapper {
+    font-size: 7vh;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    font-family: medieval;
+    color: black
+}
+
+.bannerInfo {
+    font-size: 3vh;
+    color: black;
+    padding: 20px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .characterMoveDown {
@@ -154,24 +253,33 @@ body {
     animation: characterMoveRight 500ms infinite;
 }
 
-.characterSpellUp {
-    animation: characterSpellUp 700ms;
+.popping:hover {
+    animation: popping 500ms infinite;
+    color: white;
 }
 
-.characterSpellDown {
-    animation: characterSpellDown 700ms;
-}
+@keyframes popping {
+    
+    0% {
+        transform: translateY(0px);
+    }
 
-.characterSpellLeft {
-    animation: characterSpellLeft 700ms;
-}
+    25% {
+        transform: translateY(-7.5px);
+    }
 
-.characterSpellRight {
-    animation: characterSpellRight 1000ms;
-}
+    50% {
+        transform: translateY(-15px);
+    }
 
-.characterAttackUp {
-    animation: characterAttackUp 1000ms;
+    75% {
+        transform: translateY(-7.5px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+
 }
 
 @keyframes characterMoveDown {
@@ -342,7 +450,6 @@ body {
     }
 }
 
-/* 
 @keyframes characterSpellUp {
     0% {
         background-image: url("../images/animations/character/spellUp/1.png");
@@ -511,4 +618,4 @@ body {
     100% {
         background-image: url("../images/animations/character/attackUp/8.png");
     }
-} */
+}
