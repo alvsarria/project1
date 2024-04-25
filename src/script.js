@@ -75,14 +75,14 @@ coordinateY = gameHeight / 4 - fieldObject10.height / 2 + 30;
 fieldObject10.move(coordinateY, coordinateX);
 mainLibraryObjects.arrayFieldObjects.push(fieldObject10);
 
-// setInterval(() => {
-//     const enemyObject = new gameEnemy(gameAreaElement)
-//     enemyObject.createElement("enemy");
-//     mainLibraryObjects.arrayEnemy.push(enemyObject);
-//     mainLibraryObjects.arrayEnemy.forEach(element1 => {
-//         mainLibraryObjects.arrayFieldObjects.forEach(element2 => element1.enemyCollission(element2));
-//     });
-// }, 5000)
+setInterval(() => {
+    const enemyObject = new gameEnemy(gameAreaElement)
+    enemyObject.createElement("enemy");
+    mainLibraryObjects.arrayEnemy.push(enemyObject);
+    mainLibraryObjects.arrayEnemy.forEach(element1 => {
+        mainLibraryObjects.arrayFieldObjects.forEach(element2 => element1.enemyCollission(element2));
+    });
+}, 5000)
 
 function spearThrow() {
     const spear = document.createElement("div");
