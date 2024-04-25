@@ -321,6 +321,28 @@ document.addEventListener("keydown", (keyEvent) => {
     };
 });
 
+document.addEventListener("keydown", (keyEvent) => {
+    if (!mainLibraryObjects.playerElement.gameOver) {
+        if (keyEvent.repeat) return;
+        if (keyEvent.key === "l") {
+            if (mainLibraryObjects.playerElement.mana >= 20) {
+                if (audioFireball.paused) {
+                    audioFireball.play();
+                } else {
+                    audioFireball.currentTime = 0;
+                };
+            };
+            spellThrown = new fireBall;
+            spellThrown.createElement(mainLibraryObjects.playerElement);
+        };
+    };
+});
+
+window.addEventListener('resize', function () { 
+    "use strict";
+    window.location.reload(); 
+});
+
 setInterval(() => {
     if (!mainLibraryObjects.playerElement.gameOver) {
         if (mainLibraryObjects.playerElement.mana < 100) {

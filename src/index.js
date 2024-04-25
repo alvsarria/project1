@@ -20,7 +20,7 @@ explanation2.classList.add("explanation");
 explanation2.innerHTML = "W, S, D, A are your best options to move around, while K and L will deliver some good old fashioned democracy to your foes";
 const explanation3 = document.createElement('div');
 explanation3.classList.add("explanation");
-explanation3.innerHTML = "PRO TIP: if you struggle with your resolution while in the game, try to zoom out a bit (control - or command -) and reload the screen";
+explanation3.innerHTML = "PRO TIP: if you struggle with your resolution while in the game, try to zoom out a bit (control - or command -)";
 instructions.appendChild(explanation1);
 instructions.appendChild(explanation2);
 instructions.appendChild(explanation3);
