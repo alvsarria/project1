@@ -1,4 +1,5 @@
 let audio_intro = document.querySelector("#intro_audio")
+let audio_box = document.querySelector("#openBoxAudio")
 
 audio_intro.loop = true;
 
@@ -29,11 +30,18 @@ document.querySelector("body").appendChild(instructions);
 document.querySelector("#instructions").addEventListener("click", () => {
         menu.style.visibility = 'hidden';
         instructions.style.visibility = 'visible';
+        audio_box.play();
+
+});
+
+document.querySelector("#startGame").addEventListener("click", () => {
+        audio_box.play();
 });
 
 document.querySelector(".options1").addEventListener("click", () => {
         menu.style.visibility = 'visible';
         instructions.style.visibility = 'hidden';
+        audio_box.play();
 });
 
 window.addEventListener('resize', function () {
