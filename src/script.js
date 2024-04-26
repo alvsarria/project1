@@ -115,7 +115,7 @@ setInterval(() => {
         enemyObject1.createElement("enemySpecial");
         mainLibraryObjects.arrayEnemy.push(enemyObject1);
     };
-}, 30000)
+}, 25000)
 
 function spearThrow() {
     const spear = document.createElement("div");
